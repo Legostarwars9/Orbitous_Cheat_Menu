@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 public static class InventoryCheats
 {
@@ -135,5 +136,192 @@ public static class InventoryCheats
         inventory.Add(id);
 
         shooter.AddModifier(id);
+    }
+
+    public static player GetPlayer()
+    {
+        return player.Instance;
+    }
+
+    public static List<string> GetUpgradeNames()
+    {
+        return new List<string>
+        {
+            "Max Health",
+            "Fuel Capacity",
+            "Boost Recharge",
+            "Heat Loss",
+            "Solar Panels",
+            "Sub Weapon Slots",
+            "Fuel Insurance",
+            "Mass",
+            "Solar Sail"
+        };
+    }
+
+    public static float GetUpgradeValue(int id)
+    {
+        player p = GetPlayer();
+
+        if (p == null)
+            return 0f;
+
+        shooterWithLoadout shooter = p.shooter;
+
+        switch (id)
+        {
+            case 0:
+                return p.hpMax;
+
+            case 1:
+                return p.fuelCap;
+
+            case 2:
+                return shooter != null
+                    ? shooter.boostRechargeSpeed
+                    : 0f;
+
+            case 3:
+                return shooter != null
+                    ? shooter.heatLossSpeed
+                    : 0f;
+
+            case 4:
+                return p.solarPanels;
+
+            case 5:
+                return shooter != null
+                    ? shooter.subSlotCount
+                    : 0f;
+
+            case 6:
+                return p.fuelInsuranceLevel;
+
+            case 7:
+                Rigidbody2D rb = GetPlayerRigidbody(p);
+
+                return rb != null
+                    ? rb.mass
+                    : 0f;
+
+            case 8:
+                return p.solarSailLevel;
+
+            default:
+                return 0f;
+        }
+    }
+
+    public static void SetUpgradeValue(int id, float value)
+    {
+        player p = GetPlayer();
+
+        if (p == null)
+            return;
+
+        shooterWithLoadout shooter = p.shooter;
+
+        switch (id)
+        {
+            case 0:
+                p.hpMax = Mathf.Max(0f, value);
+                break;
+
+            case 1:
+                p.fuelCap = Mathf.Max(0f, value);
+                break;
+
+            case 2:
+                if (shooter != null)
+                    shooter.boostRechargeSpeed = Mathf.Max(0f, value);
+                break;
+
+            case 3:
+                if (shooter != null)
+                    shooter.heatLossSpeed = Mathf.Max(0f, value);
+                break;
+
+            case 4:
+                p.solarPanels =
+                    Mathf.Max(
+                        0,
+                        Mathf.RoundToInt(value)
+                    );
+                break;
+
+            case 5:
+                if (shooter != null)
+                {
+                    shooter.subSlotCount =
+                        Mathf.Max(
+                            0,
+                            Mathf.RoundToInt(value)
+                        );
+                }
+                break;
+
+            case 6:
+                p.fuelInsuranceLevel =
+                    Mathf.Max(
+                        0,
+                        Mathf.RoundToInt(value)
+                    );
+                break;
+
+            case 7:
+                Rigidbody2D rb = GetPlayerRigidbody(p);
+
+                if (rb != null)
+                {
+                    rb.mass =
+                        Mathf.Max(
+                            0.01f,
+                            value
+                        );
+                }
+
+                break;
+
+            case 8:
+                p.solarSailLevel =
+                    Mathf.Max(
+                        0,
+                        Mathf.RoundToInt(value)
+                    );
+                break;
+        }
+    }
+
+    private static Rigidbody2D GetPlayerRigidbody(player p)
+    {
+        upgradeStats upgrades =
+            p.GetComponent<upgradeStats>();
+
+        if (upgrades != null &&
+            upgrades.playerRb != null)
+        {
+            return upgrades.playerRb;
+        }
+
+        return p.GetComponent<Rigidbody2D>();
+    }
+    public static int GetScraps()
+    {
+        player p = GetPlayer();
+
+        if (p == null)
+            return 0;
+
+        return p.scraps;
+    }
+
+    public static void GiveScraps(int amount)
+    {
+        player p = GetPlayer();
+
+        if (p == null)
+            return;
+
+        p.scraps += amount;
     }
 }

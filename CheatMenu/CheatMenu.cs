@@ -13,6 +13,7 @@ public class CheatMenu : MonoBehaviour
 
     private float healthValue = 100f;
     private float fuelValue = 100f;
+    private int scrapAmount = 1000;
     private int enemyAmount = 1;
     private int selectedEnemy;
     private int selectedMiniboss;
@@ -154,8 +155,7 @@ public class CheatMenu : MonoBehaviour
         if (GUILayout.Button("Full Fuel"))
             PlayerCheats.FullFuel();
 
-        if (GUILayout.Button("Full Boost"))
-            PlayerCheats.FullBoost();
+        
 
         GUILayout.Space(10f);
 
@@ -211,12 +211,7 @@ public class CheatMenu : MonoBehaviour
                 WeaponCheats.noCooldown,
                 "No Cooldown"
             );
-
-        if (GUILayout.Button("Clear Weapon Heat"))
-            WeaponCheats.ClearHeat();
-
-        if (GUILayout.Button("Clear Weapon Cooldowns"))
-            WeaponCheats.ClearCooldowns();
+        
     }
 
     private void DrawEnemies()
@@ -459,6 +454,43 @@ public class CheatMenu : MonoBehaviour
                     selectedModifier
                 );
             }
+        }
+        GUILayout.Space(10);
+        GUILayout.Label("Money");
+
+        GUILayout.Label("Current Scraps: " + InventoryCheats.GetScraps());
+
+        scrapAmount = IntField("Amount", scrapAmount);
+
+        if (GUILayout.Button("Give Scraps"))
+        {
+            InventoryCheats.GiveScraps(scrapAmount);
+        }
+        GUILayout.Space(10);
+        GUILayout.Label("Upgrades", GUI.skin.box);
+
+        List<string> upgrades = InventoryCheats.GetUpgradeNames();
+
+        for (int i = 0; i < upgrades.Count; i++)
+        {
+            GUILayout.BeginHorizontal();
+
+            GUILayout.Label(upgrades[i], GUILayout.Width(140));
+
+            float value = InventoryCheats.GetUpgradeValue(i);
+
+            string valueText = value.ToString("0.##");
+            string newValueText = GUILayout.TextField(valueText);
+
+            if (float.TryParse(newValueText, out float newValue))
+            {
+                if (Mathf.Abs(newValue - value) > 0.001f)
+                {
+                    InventoryCheats.SetUpgradeValue(i, newValue);
+                }
+            }
+
+            GUILayout.EndHorizontal();
         }
     }
 

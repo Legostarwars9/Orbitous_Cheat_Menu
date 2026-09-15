@@ -22,7 +22,7 @@ public class OrbitousCheats : BaseUnityPlugin
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F12))
+        if (Input.GetKeyDown(KeyCode.F10))
         {
             menu.Toggle();
         }
