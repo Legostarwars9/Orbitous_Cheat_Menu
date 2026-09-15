@@ -1,7 +1,7 @@
 using BepInEx;
 using UnityEngine;
 
-[BepInPlugin("legostarwars9.orbitouscheats", "Orbitous Cheats", "0.1.0")]
+[BepInPlugin("legostarwars9.orbitouscheats", "Orbitous Cheats", "1.0.0")]
 public class OrbitousCheats : BaseUnityPlugin
 {
     internal static OrbitousCheats Instance;
