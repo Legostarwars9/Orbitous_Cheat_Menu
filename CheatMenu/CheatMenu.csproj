@@ -4,6 +4,7 @@
             Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
     <Import Project="Orbit Us.local.props"
             Condition="Exists('Orbit Us.local.props')" />
+
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -16,6 +17,7 @@
         <FrameworkPathOverride>/usr/lib/mono/4.7.1-api</FrameworkPathOverride>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
+
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
         <DebugSymbols>true</DebugSymbols>
@@ -26,6 +28,7 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
+
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
         <DebugType>pdbonly</DebugType>
@@ -35,20 +38,16 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
+
     <ItemGroup>
         <Reference Include="System"/>
         <Reference Include="System.Core"/>
         <Reference Include="System.Data"/>
         <Reference Include="System.Xml"/>
     </ItemGroup>
+
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-    Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
+
     <ItemGroup>
         <Reference Include="BepInEx">
             <HintPath>$(OrbitUsGameDir)/BepInEx/core/BepInEx.dll</HintPath>
@@ -95,22 +94,45 @@
             <HintPath>$(OrbitUsGameDir)/OrbitousLinux_Data/Managed/Assembly-CSharp.dll</HintPath>
             <Private>False</Private>
         </Reference>
+
         <Reference Include="UnityEngine.ImageConversionModule">
             <HintPath>$(OrbitUsGameDir)/OrbitousLinux_Data/Managed/UnityEngine.ImageConversionModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
+
         <Reference Include="UnityEngine.InputLegacyModule">
             <HintPath>$(OrbitUsGameDir)/OrbitousLinux_Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
         </Reference>
+
         <Reference Include="UnityEngine.TextRenderingModule">
             <HintPath>$(OrbitUsGameDir)/OrbitousLinux_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.Physics2DModule">
+            <HintPath>$(OrbitUsGameDir)/OrbitousLinux_Data/Managed/UnityEngine.Physics2DModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(OrbitUsGameDir)/OrbitousLinux_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+
         <UnityReferences Include="$(OrbitUsGameDir)/OrbitousLinux_Data/Managed/UnityEngine*.dll" />
     </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="BossCheats.cs" />
+        <Compile Include="CheatMenu.cs" />
+        <Compile Include="EnemyCheats.cs" />
+        <Compile Include="InventoryCheats.cs" />
+        <Compile Include="OrbitousCheats.cs" />
+        <Compile Include="PlayerCheats.cs" />
+        <Compile Include="WaveCheats.cs" />
+        <Compile Include="WeaponCheats.cs" />
+    </ItemGroup>
+
     <Target Name="CopyModToBepInEx" AfterTargets="Build">
         <Copy
             SourceFiles="$(TargetPath)"
             DestinationFolder="$(OrbitUsGameDir)/BepInEx/plugins/"
             />
         </Target>
+
     </Project>
