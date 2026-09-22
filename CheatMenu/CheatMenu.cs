@@ -100,7 +100,7 @@ public class CheatMenu : MonoBehaviour
 
         GUILayout.Space(10f);
 
-        GUILayout.Label("F12 - Toggle menu");
+        GUILayout.Label("F10 - Toggle menu");
 
         GUI.DragWindow(
             new Rect(0f, 0f, 10000f, 25f)
