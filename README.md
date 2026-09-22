@@ -12,5 +12,7 @@ This Mod is for the game Orbitous on Steam: https://store.steampowered.com/app/3
    
 <h3><b>3. Start Playing</b></h3>
   Open the Cheat Menu with F10 and Have Fun!
-   
+
+<br>This Mod will not work with my other mod, [OrbitUS](https://github.com/Legostarwars9/OrbitUS), UNLESS you are the host
+   <br>
 <br><h2><b> AI DISCLAIMER: ALL CODE IN THIS MOD IS AI-GENERATED </b></h3>
